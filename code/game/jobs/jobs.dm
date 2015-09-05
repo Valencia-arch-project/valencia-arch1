@@ -11,6 +11,7 @@ var/const/ENGINEER			=(1<<6)
 var/const/ATMOSTECH			=(1<<7)
 var/const/AI				=(1<<8)
 var/const/CYBORG			=(1<<9)
+var/const/FLUIDTECH 		=(1<<10)
 
 
 var/const/MEDSCI			=(1<<1)
@@ -64,6 +65,7 @@ var/list/engineering_positions = list(
 	"Chief Engineer",
 	"Station Engineer",
 	"Atmospheric Technician",
+	"Fluid Technician",
 )
 
 

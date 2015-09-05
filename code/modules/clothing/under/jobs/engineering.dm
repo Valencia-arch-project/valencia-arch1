@@ -14,6 +14,13 @@
 	item_state = "atmos_suit"
 	worn_state = "atmos"
 
+/obj/item/clothing/under/rank/fluid_technician
+	desc = "It's a jumpsuit worn by fluid technicians."
+	name = "fluid technician's jumpsuit"
+	icon_state = "fluid"
+	item_state = "fluid_suit"
+	worn_state = "fluid"
+
 /obj/item/clothing/under/rank/engineer
 	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
 	name = "engineer's jumpsuit"
