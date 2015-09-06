@@ -207,6 +207,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	default_cartridge = /obj/item/weapon/cartridge/atmos
 	icon_state = "pda-atmo"
 
+/obj/item/device/pda/fluid
+	default_cartridge = /obj/item/weapon/cartridge/fluid
+	icon_state = "pda-fluid"
+
 /obj/item/device/pda/chemist
 	default_cartridge = /obj/item/weapon/cartridge/chemistry
 	icon_state = "pda-chem"
@@ -385,6 +389,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					"access_security" = cartridge.access_security,\
 					"access_engine" = cartridge.access_engine,\
 					"access_atmos" = cartridge.access_atmos,\
+					"access_fluid" = cartridge.access_fluid,\
 					"access_medical" = cartridge.access_medical,\
 					"access_clown" = cartridge.access_clown,\
 					"access_mime" = cartridge.access_mime,\

@@ -10,6 +10,7 @@
 	var/access_security = 0
 	var/access_engine = 0
 	var/access_atmos = 0
+	var/access_fluid = 0
 	var/access_medical = 0
 	var/access_clown = 0
 	var/access_mime = 0
@@ -42,6 +43,11 @@
 	name = "\improper BreatheDeep cartridge"
 	icon_state = "cart-a"
 	access_atmos = 1
+
+/obj/item/weapon/cartridge/fluid
+	name = "\improper BigDrink cartridge"
+	icon_state = "cart-f"
+	access_fluid = 1
 
 /obj/item/weapon/cartridge/medical
 	name = "\improper Med-U cartridge"

@@ -64,6 +64,7 @@
 /var/const/access_psychiatrist = 64 // Psychiatrist's office
 /var/const/access_xenoarch = 65
 /var/const/access_medical_equip = 66
+/var/const/access_fluid_treatment = 77
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
