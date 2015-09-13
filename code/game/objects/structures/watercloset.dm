@@ -148,12 +148,14 @@
 /obj/machinery/shower/attack_hand(mob/M as mob)
 	on = !on
 	update_icon()
-	if(on)
+	if(on && waterisclean)
 		if (M.loc == loc)
 			wash(M)
 			process_heat(M)
 		for (var/atom/movable/G in src.loc)
 			G.clean_blood()
+	else if(!waterisclean)
+		M << "<span class='warning'>The water is filthy!</span>"
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob)
 	if(I.type == /obj/item/device/analyzer)
@@ -213,7 +215,7 @@
 		L.ExtinguishMob()
 		L.fire_stacks = -20 //Douse ourselves with water to avoid fire more easily
 
-	if(iscarbon(O))
+	if(iscarbon(O) && waterisclean)
 		var/mob/living/carbon/M = O
 		if(M.r_hand)
 			M.r_hand.clean_blood()
@@ -316,11 +318,11 @@
 
 /obj/machinery/shower/proc/process_heat(mob/living/M)
 	if(!on || !istype(M)) return
-	
+
 	var/temperature = temperature_settings[watertemp]
 	var/temp_adj = between(BODYTEMP_COOLING_MAX, temperature - M.bodytemperature, BODYTEMP_HEATING_MAX)
 	M.bodytemperature += temp_adj
-	
+
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(temperature >= H.species.heat_level_1)
@@ -373,7 +375,10 @@
 
 	if(!Adjacent(user)) return		//Person has moved away from the sink
 
-	user.clean_blood()
+	if(waterisclean)
+		user.clean_blood()
+	else
+		usr << "<span class='warning'>The water is filthy!</span>"
 	if(ishuman(user))
 		user:update_inv_gloves()
 	for(var/mob/V in viewers(src, null))

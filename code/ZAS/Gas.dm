@@ -22,10 +22,12 @@
 	id = "phoron"
 	name = "Phoron"
 	specific_heat = 200	// J/(mol*K)
-	
+
 	//Hypothetical group 14 (same as carbon), period 8 element.
 	//Using multiplicity rule, it's atomic number is 162
 	//and following a N/Z ratio of 1.5, the molar mass of a monatomic gas is:
+
+	//isnt the N/Z ratio 1.6?
 	molar_mass = 0.405	// kg/mol
 
 	tile_overlay = "phoron"
@@ -54,3 +56,12 @@
 	name = "Oxygen Agent-B"	//what is this?
 	specific_heat = 300	// J/(mol*K)
 	molar_mass = 0.032	// kg/mol
+
+/xgm_gas/water
+	id = "water"
+	name = "Water"
+	specific_heat = 5207 // all the others were fudged so I made it relative to oxygen's fake specific heat and its irl  --MadSnailDisease
+	molar_mass = 0.018
+
+	tile_overlay = "water"
+	overlay_limit = 0.6
