@@ -60,7 +60,7 @@
 /xgm_gas/water
 	id = "water"
 	name = "Water"
-	specific_heat = 5207 // all the others were fudged so I made it relative to oxygen's fake specific heat and its irl  --MadSnailDisease
+	specific_heat = 5207 // all the others were fudged so I made it relative to oxygen's fake specific heat and what it is irl  --MadSnailDisease
 	molar_mass = 0.018
 
 	tile_overlay = "water"
