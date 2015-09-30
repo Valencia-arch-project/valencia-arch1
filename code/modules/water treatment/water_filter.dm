@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/water_filter
-	icon = 'icons/atmos/vent_scrubber.dmi'
+	icon = 'icons/atmos/vent_scrubber.dmi' //TODO: make real sprite for it in 'icons/atmos/watertreatment.dmi'
 	icon_state = "map_scrubber_off"
 
 	name = "Water Filter"

@@ -148,13 +148,13 @@
 /obj/machinery/shower/attack_hand(mob/M as mob)
 	on = !on
 	update_icon()
-	if(on && waterisclean)
+	if(on && waterisclean(src.loc))
 		if (M.loc == loc)
 			wash(M)
 			process_heat(M)
 		for (var/atom/movable/G in src.loc)
 			G.clean_blood()
-	else if(!waterisclean)
+	else if(!waterisclean(src.loc))
 		M << "<span class='warning'>The water is filthy!</span>"
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob)
@@ -215,7 +215,7 @@
 		L.ExtinguishMob()
 		L.fire_stacks = -20 //Douse ourselves with water to avoid fire more easily
 
-	if(iscarbon(O) && waterisclean)
+	if(iscarbon(O) && waterisclean(src.loc))
 		var/mob/living/carbon/M = O
 		if(M.r_hand)
 			M.r_hand.clean_blood()
@@ -302,6 +302,7 @@
 /obj/machinery/shower/process()
 	if(!on) return
 	wash_floor()
+	pump_gas_environment(src, 0.01)
 	if(!mobpresent)	return
 	for(var/mob/living/L in loc)
 		process_heat(L)
@@ -337,7 +338,43 @@
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
 
+/obj/structure/faucet //no 'on' var is needed, as when the flow is 0, nothing will be pumping and the pump gas proc will terminate
+	desc = "A faucet. It spews water"
+	icon = 'icons/obj/watercloset.dmi'
+	//icon_state =
+	anchored = 1
+	var/flow = 1
+	var/is_washing = 0
 
+/obj/structure/faucet/process()
+	if(flow == 0) return
+	pump_gas_environment(src, (0.01 * flow))
+
+/obj/structure/faucet/verb/increase_flow()
+	set name = "Increase Flow"
+	set desc = "Make the faucet spew more water"
+	if(flow < 3)
+		flow++
+	else
+		usr << "\b You keep turning but nothing changes"
+	update_icon()
+
+/obj/structure/faucet/verb/decrease_flow()
+	set name = "Decrease Flow"
+	set desc = "Make the faucet spew less water"
+	set category = "Object"
+	set src in view(1)
+	if(flow > 1)
+		flow--
+	else
+		usr << "\b It's already off!"
+	update_icon()
+
+/obj/structure/faucet/update_icon()
+	if(flow > 0)
+		//icon_state =
+	else
+		//icon_state =
 
 /obj/structure/sink
 	name = "sink"
@@ -375,7 +412,7 @@
 
 	if(!Adjacent(user)) return		//Person has moved away from the sink
 
-	if(waterisclean)
+	if(waterisclean(src.loc))
 		user.clean_blood()
 	else
 		usr << "<span class='warning'>The water is filthy!</span>"
