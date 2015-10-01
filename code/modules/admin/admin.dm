@@ -922,6 +922,13 @@ proc/admin_notice(var/message, var/rights)
 		log_admin("[key_name(usr)] removed the delay.")
 	feedback_add_details("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/kickall()
+	set category = "Server"
+	set desc = "Kicks all players"
+	set name = "Kick All"
+	for (var/M in clients)
+		qdel(M)
+
 /datum/admins/proc/adjump()
 	set category = "Server"
 	set desc="Toggle admin jumping"

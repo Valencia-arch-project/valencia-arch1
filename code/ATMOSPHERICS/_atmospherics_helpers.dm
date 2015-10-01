@@ -21,6 +21,14 @@
 	M.debug = !M.debug
 	usr << "[M]: Debug messages toggled [M.debug? "on" : "off"]."
 
+//Returns the gas_mixture of a pipe at the loc
+//T - should always be src.loc
+/proc/find_pipe(var/turf/T)
+	var/datum/gas_mixture/pipe
+	for(var/obj/machinery/atmospherics/pipe/simple/P in T.loc)
+		pipe = P.return_air()
+	return pipe
+
 //Generalized gas pumping proc.
 //Moves gas from one gas_mixture to another and returns the amount of power needed (assuming 1 second), or -1 if no gas was pumped.
 //transfer_moles - Limits the amount of moles to transfer. The actual amount of gas moved may also be limited by available_power, if given.
@@ -66,6 +74,30 @@
 	sink.merge(removed)
 
 	return power_draw
+
+//Gas being spilled into the environment proc (simplified version of previous)
+/proc/pump_gas_environment(var/obj/O, var/transfer_moles = null)
+	var/datum/gas_mixture/source = find_pipe(O.loc)
+	var/datum/gas_mixture/environment = O.loc.return_air()
+
+	if (source.total_moles < MINIMUM_MOLES_TO_PUMP) //if we cant transfer enough gas just stop to avoid further processing
+		return -1
+
+	if (isnull(transfer_moles))
+		transfer_moles = source.total_moles
+	else
+		transfer_moles = min(source.total_moles, transfer_moles)
+
+	if (transfer_moles < MINIMUM_MOLES_TO_PUMP) //if we cant transfer enough gas just stop to avoid further processing
+		return -1
+
+	var/datum/gas_mixture/removed = source.remove(transfer_moles)
+	if (!removed) //Just in case
+		return -1
+
+	environment.merge(removed)
+
+	return 1
 
 //Gas 'pumping' proc for the case where the gas flow is passive and driven entirely by pressure differences (but still one-way).
 /proc/pump_gas_passive(var/obj/machinery/M, var/datum/gas_mixture/source, var/datum/gas_mixture/sink, var/transfer_moles = null)
@@ -439,7 +471,7 @@
 		var/sink_heat_capacity = sink.heat_capacity()
 		var/transfer_heat_capacity = source.heat_capacity()*estimate_moles/source_total_moles
 		air_temperature = (sink.temperature*sink_heat_capacity  + source.temperature*transfer_heat_capacity) / (sink_heat_capacity + transfer_heat_capacity)
-	
+
 	//get the number of moles that would have to be transfered to bring sink to the target pressure
 	return pressure_delta*output_volume/(air_temperature * R_IDEAL_GAS_EQUATION)
 
