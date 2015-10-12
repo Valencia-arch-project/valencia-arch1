@@ -197,3 +197,15 @@
 /obj/item/projectile/bullet/shotgun/practice
 	name = "practice"
 	damage = 5
+
+/obj/item/projectile/bullet/muon
+	name = "muon particle"
+	//icon_state =
+	damage = 0 // The actual damage is computed in /code/modules/fusion_reactor/muon_beam.dm
+
+	muzzle_type = /obj/effect/projectile/bullet/muzzle
+
+/obj/item/projectile/bullet/muon/on_hit(var/atom/target, var/blocked = 0)
+	if (..(target, blocked))
+		var/mob/living/L = target
+		L.gib()
