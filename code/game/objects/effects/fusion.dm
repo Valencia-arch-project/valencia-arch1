@@ -7,6 +7,7 @@
 	unacidable = 1
 	anchored = 1.0
 
+/* Removed because per tick CPU usage would be stupid high cuz this is inefficient af
 /obj/effect/fusion/process()
 	for(var/mob/M in src.loc)
 		M.gib() //owie
@@ -25,3 +26,4 @@
 				new /obj/effect/fusion(T.loc)
 				return
 		return
+*/

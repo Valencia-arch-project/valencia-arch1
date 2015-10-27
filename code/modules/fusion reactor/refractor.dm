@@ -1,10 +1,8 @@
 /////////////////////////////////////////////////////////////////////////
 //   Not very special, just initiates fusion, cuz science              //
 //   A lil bit hacky, but it doesnt need to be realistic               //
-//   By MadSnail Disease                                               //
+//   By Mad Snail Disease                                               //
 /////////////////////////////////////////////////////////////////////////
-
-
 
 
 /turf/simulated/wall/refractor
@@ -19,8 +17,12 @@
 	heat_capacity = 650000
 
 /turf/simulated/wall/refractor/bullet_act(var/obj/item/projectile/Proj)
-	var/datum/gas_mixture/G = src.loc.return_air()
-	if (istype(Proj, /obj/item/projectile/bullet/muon) && G.gas["heavywater"] >= 0.01)
-		new /obj/effect/fusion(src.loc)
+	if (istype(Proj, /obj/item/projectile/bullet/muon))
+		var/list/location = getCircle(src.loc, 5)
+		for(var/turf/T in location)
+			var/datum/gas_mixture/G = T.return_air()
+			if (G.gas["heavywater"] >= 0.01)
+				new /obj/effect/fusion(src.loc)
+		return 1
 	else
 		..()

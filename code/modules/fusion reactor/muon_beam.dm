@@ -13,10 +13,10 @@
 
 	var/active = 0
 	var/powered = 0
-	var/fire_delay = 1
-	var/max_burst_delay = 10
-	var/min_burst_delay = 5
-	var/burst_shots = 20
+	var/fire_delay = 5
+	var/max_burst_delay = 20
+	var/min_burst_delay = 10
+	var/burst_shots = 2
 	var/last_shot = 0
 	var/shot_number = 0
 	var/state = 0
@@ -96,7 +96,7 @@
 
 		//need to calculate the power per shot as the emitter doesn't fire continuously.
 		var/obj/item/projectile/beam/emitter/A = new /obj/item/projectile/beam/emitter( src.loc )
-		A.damage = INFINITY //its a particle that makes your atoms closer together, you are NOT surviving it
+		A.damage = 1e4 //its a particle that makes your atoms closer together, you are NOT surviving it
 
 		playsound(src.loc, 'sound/weapons/emitter.ogg', 25, 1)
 		if(prob(10))

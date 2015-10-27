@@ -133,12 +133,12 @@
     hx -= ox
     ly -= oy
     hy -= oy
-    var/list/l = list()
+    var/list/circleContents = list()
     var/mdist = radius*radius, count = 1, x, y
     for(y in hy to ly step -1)
         for(x in hx to lx step -1)
             if(x*x + y*y<=mdist)
-                l += turfs[count++]
+                circleContents += turfs[count++]
             else
                 count++
-    return l
+    return circleContents
