@@ -65,3 +65,12 @@
 
 	tile_overlay = "water"
 	overlay_limit = 0.6
+
+/xgm_gas/heavy_water
+	id = "heavywater"
+	name = " Heavy Water"
+	specific_heat = 5207 //I'm salty that I have to recode this, so I'm assuming its about the same
+	molar_mass = 0.045 //approx 2.5 standard MM assuming equal deuterium/tritium combo
+
+	tile_overlay = "water"
+	overlay_limit = 0.1

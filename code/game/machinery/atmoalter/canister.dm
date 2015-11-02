@@ -50,6 +50,12 @@
 	canister_color = "orange"
 	can_label = 0
 
+/obj/machinery/portable_atmospherics/canister/heavywater
+	name = "Canister \[Heavy Water\]"
+	icon_state = "orange"
+	canister_color = "orange"
+	can_label = 0
+
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
 	icon_state = "black"

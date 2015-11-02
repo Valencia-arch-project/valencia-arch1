@@ -122,3 +122,23 @@
 
 /proc/norm(x, y)
 	return sqrt(squaredNorm(x, y))
+
+//Returns the contents of a circle of radius r and origin "origin"  Credit to Ter13 for the code
+/proc/getCircle(var/turf/origin, var/radius)
+    var/ox = origin.x, oy = origin.y, oz = origin.z
+    var/lx = max(ox - radius,1), hx = min(ox + radius,world.maxx)
+    var/ly = max(oy - radius,1), hy = min(oy + radius,world.maxy)
+    var/list/turfs = block(locate(lx,ly,oz),locate(hx,hy,oz))
+    lx -= ox
+    hx -= ox
+    ly -= oy
+    hy -= oy
+    var/list/circleContents = list()
+    var/mdist = radius*radius, count = 1, x, y
+    for(y in hy to ly step -1)
+        for(x in hx to lx step -1)
+            if(x*x + y*y<=mdist)
+                circleContents += turfs[count++]
+            else
+                count++
+    return circleContents
